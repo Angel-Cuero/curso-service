@@ -1,8 +1,6 @@
 package co.edu.uceva.cursoservice.model.services;
 
 import co.edu.uceva.cursoservice.model.entities.Curso;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -15,6 +13,4 @@ public interface ICursoService {
     Curso findById(Long id);
     Curso update(Curso curso);
     List<Curso> findAll();
-    Page<Curso> findAll(Pageable pageable);
-    //Page<Producto> findAll(Pageable pageable);
 }

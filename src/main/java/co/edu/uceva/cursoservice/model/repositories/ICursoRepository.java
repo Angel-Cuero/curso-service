@@ -1,12 +1,11 @@
 package co.edu.uceva.cursoservice.model.repositories;
 
 import co.edu.uceva.cursoservice.model.entities.Curso;
-import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.data.repository.CrudRepository;
 
 /**
- * Interface que hereda de JpaRepository para realizar las
- * operaciones de CRUD paginacion y ordenamiento sobre la entidad Producto
+ * Interface que hereda de CrudRepository para realizar las
+ * operaciones de CRUD sobre la entidad Producto
  */
-public interface ICursoRepository extends JpaRepository<Curso, Long> {
+public interface ICursoRepository extends CrudRepository<Curso, Long> {
 }
