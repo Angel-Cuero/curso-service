@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=curso_springboot'
+      - 'POSTGRES_PASSWORD=a1b2c3d4'
+      - 'POSTGRES_USER=devdb'
+    healthcheck:
+      test: [ "CMD-SHELL","pg_isready -U devdb -d curso_springboot" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - '5432'
+    networks:
+      - red-backend-app
+
+  curso-service:
+    image: angelcuero/curso-service:latest
+    container_name: curso-service
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/curso_springboot
+      - SPRING_DATASOURCE_USERNAME=devdb
+      - SPRING_DATASOURCE_PASSWORD=a1b2c3d4
+      - JPA_DDL=create-drop
+    profiles:
+      - app
+    networks:
+      - red-backend-app
+
+networks:
+  red-backend-app:
+    driver: bridge
