@@ -1,17 +1,24 @@
 services:
   postgres:
-    image: 'postgres:latest'
+    image: postgres:latest
     environment:
-      - 'POSTGRES_DB=curso_springboot'
+      - 'POSTGRES_DB=cursosdb'
       - 'POSTGRES_PASSWORD=a1b2c3d4'
       - 'POSTGRES_USER=devdb'
     healthcheck:
-      test: [ "CMD-SHELL","pg_isready -U devdb -d curso_springboot" ]
+      test: [ "CMD-SHELL","pg_isready -U devdb -d cursosdb" ]
       interval: 10s
       timeout: 5s
       retries: 5
     ports:
       - '5432'
+    networks:
+      - red-backend-app
+
+  eureka-server:
+    image: angelcuero/eureka-server:latest
+    ports:
+      - "8761:8761"
     networks:
       - red-backend-app
 
@@ -25,10 +32,11 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/curso_springboot
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/cursosdb
       - SPRING_DATASOURCE_USERNAME=devdb
       - SPRING_DATASOURCE_PASSWORD=a1b2c3d4
       - JPA_DDL=create-drop
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
     profiles:
       - app
     networks:
