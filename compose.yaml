@@ -2,11 +2,11 @@ services:
   postgres:
     image: postgres:latest
     environment:
-      - 'POSTGRES_DB=cursosdb'
+      - 'POSTGRES_DB=curso'
       - 'POSTGRES_PASSWORD=a1b2c3d4'
       - 'POSTGRES_USER=devdb'
     healthcheck:
-      test: [ "CMD-SHELL","pg_isready -U devdb -d cursosdb" ]
+      test: [ "CMD-SHELL","pg_isready -U devdb -d curso" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -32,7 +32,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/cursosdb
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/curso
       - SPRING_DATASOURCE_USERNAME=devdb
       - SPRING_DATASOURCE_PASSWORD=a1b2c3d4
       - JPA_DDL=create-drop
