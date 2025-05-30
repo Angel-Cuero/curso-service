@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:latest
+    image: 'postgres:latest'
     environment:
       - 'POSTGRES_DB=curso'
       - 'POSTGRES_PASSWORD=a1b2c3d4'
@@ -16,7 +16,7 @@ services:
       - red-backend-app
 
   eureka-server:
-    image: angelcuero/eureka-server:latest
+    image: joseloaiza01/eureka-server:latest
     ports:
       - "8761:8761"
     networks:
